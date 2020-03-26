@@ -4,3 +4,4 @@ homebrew_packages:
 
 pip_modules:
   - virtualenv
+  - yamllint

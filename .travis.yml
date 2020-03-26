@@ -1,0 +1,49 @@
+---
+jobs:
+  include:
+    - name: High Sierra
+      os: osx
+      osx_image: xcode10.1
+      language: minimal
+
+before_install:
+  # Install pip
+  - curl https://bootstrap.pypa.io/get-pip.py | sudo -H /usr/bin/python
+  - which pip
+  - pip --version
+
+install:
+  # Dependencies
+  - >-
+    pip3 install "ansible${ANSIBLE_VERSION}"
+    ansible-lint
+    yamllint
+
+  # Check module version
+  - ansible --version
+  - ansible-lint --version
+  - yamllint --version
+
+  # Create ansible.cfg with correct roles_path
+  - printf '[defaults]\nroles_path=../\ninventory = tests/inventory' > ansible.cfg
+
+script:
+  # Lint the role.
+  - ansible-lint tests/playbook.yml
+
+  # Check the role/playbook's syntax.
+  - ansible-playbook tests/playbook.yml -i tests/inventory --syntax-check
+
+  # Test role/playbook
+  - ansible-playbook tests/playbook.yml -i tests/inventory
+
+  # Check python installation
+  - export PATH="/usr/local/opt/python/libexec/bin:$PATH"
+  - which python
+  - python --version
+
+  # Lint all YAML files.
+  - yamllint .
+
+notifications:
+  webhooks: https://galaxy.ansible.com/api/v1/notifications/
