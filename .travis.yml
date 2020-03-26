@@ -19,9 +19,10 @@ install:
     ansible-lint
     yamllint
 
-  # Check ansible version
+  # Check module version
   - ansible --version
   - ansible-lint --version
+  - yamllint --version
 
   # Create ansible.cfg with correct roles_path
   - printf '[defaults]\nroles_path=../\ninventory = tests/inventory' > ansible.cfg
@@ -35,19 +36,14 @@ script:
 
   # Test role/playbook
   - ansible-playbook tests/playbook.yml -i tests/inventory
-  - export PATH=${PATH}:/Users/travis/Library/Python/3.7/bin
 
-  # Symbolik link to python3 -> python
-  - ls -l /usr/local/bin/python
-  - ln -s /usr/local/bin/python3 /usr/local/bin/python
-  - ls -l /usr/local/bin/python
-
-  # Lint all YAML files.
-  - yamllint --version
-  - yamllint .
-
+  # Check python installation
+  - export PATH="/usr/local/opt/python/libexec/bin:$PATH"
   - which python
   - python --version
+
+  # Lint all YAML files.
+  - yamllint .
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/
