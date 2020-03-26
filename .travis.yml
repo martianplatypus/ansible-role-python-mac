@@ -11,7 +11,6 @@ before_install:
   - curl https://bootstrap.pypa.io/get-pip.py | sudo -H /usr/bin/python
   - which pip
   - pip --version
-  - export PATH=${PATH}:/Users/travis/Library/Python/3.7/bin
 
 install:
   # Dependencies
@@ -23,20 +22,27 @@ install:
   # Check ansible version
   - ansible --version
   - ansible-lint --version
-  - yamllint --version
 
   # Create ansible.cfg with correct roles_path
   - printf '[defaults]\nroles_path=../\ninventory = tests/inventory' > ansible.cfg
 
 script:
-  # Lint all YAML files.
-  - yamllint .
-
-  # Check the role/playbook's syntax.
-  - ansible-playbook tests/playbook.yml -i tests/inventory -K --syntax-check
-
   # Lint the role.
   - ansible-lint tests/playbook.yml
+
+  # Check the role/playbook's syntax.
+  - ansible-playbook tests/playbook.yml -i tests/inventory --check-syntax
+
+  # Test role/playbook
+  - ansible-playbook tests/playbook.yml -i tests/inventory
+  - export PATH=${PATH}:/Users/travis/Library/Python/3.7/bin
+  
+  # Lint all YAML files.
+  - yamllint --version
+  - yamllint .
+
+  - which python
+  - python --version
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/
