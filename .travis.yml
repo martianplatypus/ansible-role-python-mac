@@ -31,12 +31,17 @@ script:
   - ansible-lint tests/playbook.yml
 
   # Check the role/playbook's syntax.
-  - ansible-playbook tests/playbook.yml -i tests/inventory --check-syntax
+  - ansible-playbook tests/playbook.yml -i tests/inventory --syntax-check
 
   # Test role/playbook
   - ansible-playbook tests/playbook.yml -i tests/inventory
   - export PATH=${PATH}:/Users/travis/Library/Python/3.7/bin
-  
+
+  # Symbolik link to python3 -> python
+  - ls -l /usr/local/bin/python
+  - ln -s /usr/local/bin/python3 /usr/local/bin/python
+  - ls -l /usr/local/bin/python
+
   # Lint all YAML files.
   - yamllint --version
   - yamllint .
