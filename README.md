@@ -1,6 +1,8 @@
 python-mac
 =========
 
+[![Galaxy Role][badge-role]][link-galaxy]
+[![Build Status][badge-travis]][link-travis]
 [![MIT Licensed][badge-license]][link-license]
 
 Uses homebrew to install Python 3 and virtualenv on MacOS 10.13 and above.
@@ -34,7 +36,6 @@ A list of python modules installed with pip
 pip_modules
 ```
 * virtualenv
-* ansible-lint
 * yamllint
 
 
@@ -51,5 +52,9 @@ Example Playbook
          - role: ansible-role-python-mac
 
 
-[badge-license]: https://img.shields.io/github/license/martianplatypus/ansible-role-virtual-mac
-[link-license]: https://github.com/martianplatypus/ansible-role-virtual-mac/blob/master/LICENSE
+[badge-role]: https://img.shields.io/ansible/role/47242.svg?style=flat-square
+[badge-license]: https://img.shields.io/github/license/martianplatypus/ansible-role-python-mac
+[badge-travis]: https://img.shields.io/travis/com/martianplatypus/ansible-role-python-mac
+[link-galaxy]: https://galaxy.ansible.com/martianplatypus/python_mac/
+[link-license]: https://github.com/martianplatypus/ansible-role-python-mac/blob/master/LICENSE
+[link-travis]: https://travis-ci.com/github/martianplatypus/ansible-role-python-mac/

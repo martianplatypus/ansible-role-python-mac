@@ -4,5 +4,4 @@ homebrew_packages:
 
 pip_modules:
   - virtualenv
-  - ansible-lint
   - yamllint
