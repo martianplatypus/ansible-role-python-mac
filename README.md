@@ -8,7 +8,7 @@ Uses homebrew to install Python 3 and virtualenv on MacOS 10.13 and above.
 Requirements
 ------------
 
-Python and virtualenv are installed via homebrew.
+Python 3 through homebrew and virtualenv via pip. 
 
 Hombrew can be installed using the following command in a terminal:
 ```
@@ -28,6 +28,11 @@ A list of homebrew packages to be installed:
 homebrew_packages
 ```
 * python
+
+A list of python modules installed with pip
+```
+homebrew_packages
+```
 * virtualenv
 
 

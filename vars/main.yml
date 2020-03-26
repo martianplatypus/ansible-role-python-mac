@@ -1,4 +1,6 @@
 ---
 homebrew_packages:
   - python
+
+pip_modules:
   - virtualenv
