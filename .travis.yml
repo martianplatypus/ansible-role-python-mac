@@ -12,23 +12,33 @@ before_install:
   - which pip
   - pip --version
 
+  # Setup virtualenv
+  - sudo -H pip install -U virtualenv
+  - virtualenv --version
+  - virtualenv .venv
+  - source .venv/bin/activate
+
 install:
   # Dependencies
   - >-
-    pip3 install "ansible${ANSIBLE_VERSION}"
+    pip install "ansible${ANSIBLE_VERSION}"
     ansible-lint
+    testinfra
     yamllint
 
-  # Check module version
+  # Check versions
   - ansible --version
   - ansible-lint --version
+  - py.test --version
   - yamllint --version
 
   # Create ansible.cfg with correct roles_path
   - printf '[defaults]\nroles_path=../\ninventory = tests/inventory' > ansible.cfg
 
 script:
-  # Lint the role.
+  # Lint all YAML files.
+  - yamllint .
+  # Lint test playbook
   - ansible-lint tests/playbook.yml
 
   # Check the role/playbook's syntax.
@@ -36,14 +46,8 @@ script:
 
   # Test role/playbook
   - ansible-playbook tests/playbook.yml -i tests/inventory
-
-  # Check python installation
   - export PATH="/usr/local/opt/python/libexec/bin:$PATH"
-  - which python
-  - python --version
-
-  # Lint all YAML files.
-  - yamllint .
+  - py.test -v tests/role.py
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/
