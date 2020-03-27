@@ -13,7 +13,7 @@ before_install:
   - pip --version
 
   # Setup virtualenv
-  - sudo -H pip install -U virtualenv
+  - sudo -H pip install -U virtualenv --ignore-installed six
   - virtualenv --version
   - virtualenv .venv
   - source .venv/bin/activate
@@ -25,7 +25,6 @@ install:
     ansible-lint
     testinfra
     yamllint
-    --ignore-installed six
 
   # Check versions
   - ansible --version
