@@ -25,6 +25,7 @@ install:
     ansible-lint
     testinfra
     yamllint
+    --ignore-installed six
 
   # Check versions
   - ansible --version
