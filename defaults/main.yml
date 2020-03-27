@@ -1,2 +1,9 @@
 ---
-# defaults file for ansible-role-python-mac
+pip_modules:
+  - ansible-lint
+  - molecule
+  - python-vagrant
+  - requests
+  - testinfra
+  - virtualenv
+  - yamllint
