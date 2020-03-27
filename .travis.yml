@@ -43,10 +43,12 @@ script:
 
   # Check the role/playbook's syntax.
   - ansible-playbook tests/playbook.yml -i tests/inventory --syntax-check
+  - export PATH="/usr/local/opt/python/libexec/bin:$PATH"
 
   # Test role/playbook
   - ansible-playbook tests/playbook.yml -i tests/inventory
-  - export PATH="/usr/local/opt/python/libexec/bin:$PATH"
+
+  - source .venv/bin/deactivate
   - py.test -v tests/role.py
 
 notifications:
