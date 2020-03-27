@@ -52,7 +52,7 @@ Example Playbook
          - role: ansible-role-python-mac
 
 
-[badge-role]: https://img.shields.io/ansible/role/47242.svg?style=flat-square
+[badge-role]: https://img.shields.io/ansible/role/47418.svg?style=flat-square
 [badge-license]: https://img.shields.io/github/license/martianplatypus/ansible-role-python-mac
 [badge-travis]: https://img.shields.io/travis/com/martianplatypus/ansible-role-python-mac
 [link-galaxy]: https://galaxy.ansible.com/martianplatypus/python_mac/
