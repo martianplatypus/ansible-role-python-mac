@@ -48,8 +48,7 @@ script:
   # Test role/playbook
   - ansible-playbook tests/playbook.yml -i tests/inventory
 
-  - source .venv/bin/deactivate
-  - py.test -v tests/role.py
+  # - py.test -v tests/role.py
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/
