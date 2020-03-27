@@ -2,7 +2,7 @@
 galaxy_info:
   role_name: python-mac
   author: martianplatypus
-  description: An Ansible role for python and virtualenv on Mac.
+  description: An Ansible role to instal Python3 and virtualenv on Mac.
   company: None
 
   license: MIT
@@ -16,8 +16,12 @@ galaxy_info:
         - 10.14
 
   galaxy_tags:
+    - mac
+    - osx
     - highsierra
+    - mojave
     - python
+    - python3
     - virtualenv
 
 dependencies: []
