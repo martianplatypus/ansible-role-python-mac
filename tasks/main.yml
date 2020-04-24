@@ -36,6 +36,7 @@
     path: "{{ ansible_env.HOME }}/{{ shell_config_file }}"
     line: "{{ item }}"
   with_items:
+    - "# Python aliases"
     - "export alias python=/usr/local/bin/python3"
     - "export alias pip=/usr/local/bin/pip3"
   when: not ansible_check_mode

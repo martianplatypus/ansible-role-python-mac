@@ -38,8 +38,8 @@ script:
   - ansible-playbook tests/playbook.yml -i tests/inventory
 
   # Check python installation
-  - source /users/travis/.bashrc
-  - which python
+  - source ~/.bashrc
+  - cat ~/.bashrc 
   - python --version
 
   # Lint all YAML files.
