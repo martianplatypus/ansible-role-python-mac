@@ -15,7 +15,7 @@ before_install:
 install:
   # Dependencies
   - >-
-    pip3 install "ansible${ANSIBLE_VERSION}"
+    pip3 install ansible
     ansible-lint
     yamllint
 
@@ -38,7 +38,7 @@ script:
   - ansible-playbook tests/playbook.yml -i tests/inventory
 
   # Check python installation
-  - export PATH="/usr/local/opt/python/libexec/bin:$PATH"
+  - source /users/travis/.bashrc
   - which python
   - python --version
 
