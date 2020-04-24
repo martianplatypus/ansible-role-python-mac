@@ -20,12 +20,12 @@
 
 - name: Check shell config file exists
   stat:
-    path: "{{ shell_config_file }}"
+    path: "{{ ansible_env.HOME }}/{{ shell_config_file }}"
   register: shell_config_file_stat
 
 - name: Create shell config file
   file:
-    path: "{{ shell_config_file }}"
+    path: "{{ ansible_env.HOME }}/{{ shell_config_file }}"
     state: touch
     mode: u+rw
   when: not ansible_check_mode
@@ -33,7 +33,7 @@
 
 - name: Set python3 and pip 3 aliases in shell configuration
   lineinfile:
-    path: "{{ shell_config_file }}"
+    path: "{{ ansible_env.HOME }}/{{ shell_config_file }}"
     line: "{{ item }}"
   with_items:
     - "export alias python=/usr/local/bin/python3"
