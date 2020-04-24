@@ -13,3 +13,30 @@
     version: "{{ item.version | default(omit) }}"
   loop:
     - "{{ pip_modules }}"
+
+- name: Set shell config file variable
+  set_fact:
+    shell_config_file: "{{ ansible_distribution_version is version(10.15, '<') | ternary ('.bashrc', '.zshrc') }}"
+
+- name: Check shell config file exists
+  stat:
+    path: "{{ ansible_env.HOME }}/{{ shell_config_file }}"
+  register: shell_config_file_stat
+
+- name: Create shell config file
+  file:
+    path: "{{ ansible_env.HOME }}/{{ shell_config_file }}"
+    state: touch
+    mode: u+rw
+  when: not ansible_check_mode
+  changed_when: shell_config_file_stat.stat is defined and not shell_config_file_stat.stat.exists
+
+- name: Set python3 and pip 3 aliases in shell configuration
+  lineinfile:
+    path: "{{ ansible_env.HOME }}/{{ shell_config_file }}"
+    line: "{{ item }}"
+  with_items:
+    - "# Python aliases"
+    - "export alias python=/usr/local/bin/python3"
+    - "export alias pip=/usr/local/bin/pip3"
+  when: not ansible_check_mode
