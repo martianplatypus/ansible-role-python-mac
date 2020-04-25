@@ -31,13 +31,27 @@
   when: not ansible_check_mode
   changed_when: shell_config_file_stat.stat is defined and not shell_config_file_stat.stat.exists
 
+- name: Get Python version
+  shell: |
+    set -o pipefail
+    /usr/local/bin/python3 --version | awk '/Python/ { print $2  }' | cut -d. -f-2
+  register: python_major_version
+  changed_when: python_major_version is not defined
+
+- name: Set Python path
+  lineinfile:
+    path: "{{ ansible_env.HOME }}/{{ shell_config_file }}"
+    line: "{{ item }}"
+  with_items:
+    - "\n# Add Python to PATH. Set aliases to python and pip."
+    - export PATH="$PATH:$HOME/Library/Python/{{ python_major_version.stdout }}/bin"
+  when: python_major_version.stdout is defined and not ansible_check_mode
+
 - name: Set python3 and pip 3 aliases in shell configuration
   lineinfile:
     path: "{{ ansible_env.HOME }}/{{ shell_config_file }}"
     line: "{{ item }}"
   with_items:
-    - ""
-    - "# Python aliases"
     - "alias python=/usr/local/bin/python3"
     - "alias pip=/usr/local/bin/pip3"
   when: not ansible_check_mode
